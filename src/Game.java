@@ -13,9 +13,16 @@ import java.io.*;
 public class Game extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
     private BufferedImage back;
-    private int key, count;
+    private Background_Image bi;
+    private Background_Image yep;
+    private Background_Image hep;
+    private Background_Image bep;
+ private int key, count;
     private ImageIcon background;
-    private Player play;
+    private ImageIcon background2;
+    private ImageIcon background3;
+    private ImageIcon background4;
+ private Player play;
     private ArrayList<AlienShip> aliens;
     private ArrayList<ShipMissile> sMissiles;
     private ArrayList<AlienMissile> aMissiles;
@@ -34,7 +41,9 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         this.addKeyListener(this);
         this.addMouseMotionListener(this);
         play = new Player();
-        start = true;
+    	bi=new Background_Image();
+    	yep=new Background_Image();
+    	hep=new Background_Image();
         sMissiles = new ArrayList<>();
         aMissiles = new ArrayList<>();
         win = false;
@@ -44,6 +53,9 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         lives=3;
         infiniteLives = false; 
         background = new ImageIcon("background.png"); 
+        background2= new ImageIcon("PlanetA.png");
+        background3=new ImageIcon("planetB.png");
+        background4=new ImageIcon("PlanetC.png");
         aliens = setAliens();
         player = new PlayerShip(400, 500, 75, 100);
        
@@ -84,12 +96,16 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
 
         Graphics g2d = back.createGraphics();
         g2d.clearRect(0, 0, getSize().width, getSize().height);
+        g2d.drawImage(new ImageIcon(bi.getBackground()).getImage(), 0, 0, getWidth(), getHeight(), this);
         g2d.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
+        
+        
+        
 
         g2d.setFont(new Font("Broadway", Font.BOLD, 50));
         g2d.setColor(Color.white);
         screen(g2d);
-        
+
         if (infiniteLives) {
             g2d.drawString("Lives: Infinite", 20, 50); // Display "Infinite" if infinite lives cheat is activated
         } else {
@@ -128,6 +144,18 @@ drawWinScreen(g2d);
             case 'L':
             	drawLossScreen(g2d);
                 break;
+               
+            case 'P':
+                g2d.drawImage(background2.getImage(), 0, 0, getWidth(), getHeight(), this);
+                break;
+                
+            case 'R':
+                g2d.drawImage(background3.getImage(), 0, 0, getWidth(), getHeight(), this);
+
+break;
+            case 'O':
+                g2d.drawImage(background4.getImage(), 0, 0, getWidth(), getHeight(), this);
+break;
         }
     }
 
@@ -152,8 +180,8 @@ drawWinScreen(g2d);
 	public void drawStartScreen(Graphics g2d) {
         g2d.setFont(new Font("Broadway", Font.BOLD, 50));
         g2d.setColor(Color.white);
-        g2d.drawString("Welcome to Space Invaders", 200, 400);
-        g2d.drawString("Press SPACE to begin", 200, 600);
+        g2d.drawString("Welcome to Space Invaders", 300, 100);
+        g2d.drawString("Press SPACE to begin", 300, 670);
         g2d.drawString("Use mouse to move and left click to shoot", 200, 1000);
     }
 
@@ -273,8 +301,16 @@ public void keyPressed(KeyEvent e) {
     } else if (key == 121) {
         freezeAliens = !freezeAliens; // Toggle freeze aliens cheat
     }
+    else if (key==49) {
+screen = 'P';
+    }
+    else if (key==50) {
+    	screen = 'R';
 }
-
+    else if (key==51) {
+    	screen = 'O';
+}
+}
 
 
     public void resetGame() {
