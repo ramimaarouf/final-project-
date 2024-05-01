@@ -147,6 +147,20 @@ drawWinScreen(g2d);
                
             case 'P':
                 g2d.drawImage(background2.getImage(), 0, 0, getWidth(), getHeight(), this);
+                drawAliens(g2d);
+                drawPlayer(g2d); // Draw player ship
+moveAliens();
+drawSM(g2d);
+drawAlienMissile(g2d);
+alienHit();
+count++;
+if(count%100==0) {
+	getAlienMissile(g2d);
+}
+checkPlayerHit();
+if (aliens.isEmpty()) {
+    screen = 'W'; // Switch to win screen if all aliens are killed
+}
                 break;
                 
             case 'R':
@@ -181,7 +195,7 @@ break;
         g2d.setFont(new Font("Broadway", Font.BOLD, 50));
         g2d.setColor(Color.white);
         g2d.drawString("Welcome to Space Invaders", 300, 100);
-        g2d.drawString("Press SPACE to begin", 300, 670);
+        g2d.drawString("Press 1 , 2, 3 to the corrsponding letter planet to begin", 50, 670);
         g2d.drawString("Use mouse to move and left click to shoot", 200, 1000);
     }
 
@@ -290,8 +304,7 @@ public boolean checkPlayerHit() {
 	
 public void keyPressed(KeyEvent e) {
     int key = e.getKeyCode();
-    if (key == 32) {
-        screen = 'G'; // Switch to game screen when space is pressed
+    
     } else if (key == 77 && screen == 'W') {
         resetGame(); // Reset game when 'M' key is pressed after winning
     } else if (key == 82 && screen == 'L') {
