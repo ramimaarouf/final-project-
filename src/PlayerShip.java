@@ -7,7 +7,7 @@ public class PlayerShip extends Ship {
     }
 
     public PlayerShip(int xV, int yV, int w, int h) {
-        super(xV, yV, new ImageIcon("playership.png"), w, h);
+        super(xV, yV, new ImageIcon("SHIPSHIPL.png"), w, h);
     }
 
     public void setX(int x1) {

@@ -35,6 +35,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
     private boolean freezeAliens;
     private boolean hardMode; 
     private boolean easyMode;
+    private boolean hardModeCompleted;
     private int score;
 
     public Game() {
@@ -56,6 +57,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         infiniteLives = false;
         hardMode = false; 
         easyMode = false;
+        hardModeCompleted = false;
         score=0;
         background = new ImageIcon("background.png");
         background2 = new ImageIcon("PlanetA.png");
@@ -220,6 +222,13 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         g2d.setColor(Color.white);
         g2d.drawString("Congratulations! You have won!!", 20, 400);
         g2d.drawString("Press M to play again", 200, 600);
+        if (hardModeCompleted) {
+            // Draw a star in the bottom left corner if hard mode is completed
+            g2d.setColor(Color.yellow);
+            g2d.setFont(new Font("Arial", Font.BOLD, 30));
+            g2d.drawString("*", 50, getHeight() - 50);
+        }
+    
     }
 
     private void drawLossScreen(Graphics g2d) {
@@ -381,6 +390,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
             hardMode = true;
             resetGame();
             screen = 'G'; 
+            hardModeCompleted = false;
         
     } else if (key == 85) { 
     easyMode = true;
@@ -398,6 +408,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         count = 0;
         moveRight = true;
         lives = hardMode ? 1 : (easyMode ? 5 : 3); // Set fewer lives for hard mode
+        hardModeCompleted = false;
     }
 
     // Other methods required by interfaces (not implemented)

@@ -52,6 +52,10 @@ public void setY(int yV)
 {
 	y+=yV;
 }
+public void setPic(String path) {
+    // TODO Auto-generated method stub
+	pic=new ImageIcon(path);
+}
 
 
 
