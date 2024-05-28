@@ -33,7 +33,8 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
     private int lives;
     private boolean infiniteLives;
     private boolean freezeAliens;
-    private boolean hardMode; // New variable for hard mode
+    private boolean hardMode; 
+    private boolean easyMode;
     private int score;
 
     public Game() {
@@ -53,7 +54,8 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         screen = 'S';
         lives = 3;
         infiniteLives = false;
-        hardMode = false; // Initialize hard mode to false
+        hardMode = false; 
+        easyMode = false;
         score=0;
         background = new ImageIcon("background.png");
         background2 = new ImageIcon("PlanetA.png");
@@ -377,10 +379,15 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
             screen = 'O';
         } else if (key == 72) {
             hardMode = true;
-            resetGame(); // Start game in hard mode
-            screen = 'G'; // Switch to game screen
-        }
+            resetGame();
+            screen = 'G'; 
+        
+    } else if (key == 85) { 
+    easyMode = true;
+    resetGame(); 
+    screen = 'G'; 
     }
+}
 
     public void resetGame() {
         sMissiles.clear();
@@ -390,7 +397,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         screen = 'S';
         count = 0;
         moveRight = true;
-        lives = hardMode ? 1 : 3; // Set fewer lives for hard mode
+        lives = hardMode ? 1 : (easyMode ? 5 : 3); // Set fewer lives for hard mode
     }
 
     // Other methods required by interfaces (not implemented)

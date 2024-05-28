@@ -52,4 +52,7 @@ public void setY(int yV)
 {
 	y+=yV;
 }
+
+
+
 }
